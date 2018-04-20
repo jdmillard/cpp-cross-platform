@@ -3,7 +3,10 @@
 // it gets installed to /usr/include/uuid/uuid.h which is on the default include path
 // move these comments to a dependencies section of readme.md
 
+// TODO:
 // can this be chagned to #include<uuid.h> by changing the cmake script?
+// add cleanup script in build folder, consolidate .gitignore files
+// 
 
 #include "example.h"
 
