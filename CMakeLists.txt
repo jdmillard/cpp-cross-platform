@@ -8,23 +8,19 @@ set(CMAKE_CXX_STANDARD 11)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/Modules")
 
 # find "universally unique identifier" library
-find_package(uuid REQUIRED)
-#find_package(Foo REQUIRED) # FOO_INCLUDE_DIRS, FOO_LIBRARIES
-#find_package(Boo REQUIRED) # BOO_INCLUDE_DIRS, BOO_LIBRARIES
-
-# temporary variable prints for debugging
-message(STATUS "UUID_INCLUDE_DIRS=${UUID_INCLUDE_DIRS}")
-message(STATUS "UUID_LIBRARIES=${UUID_LIBRARIES}")
+find_package(libuuid REQUIRED)
+#find_package(libfoo REQUIRED) # libfoo_INCLUDE_DIRS, libfoo_LIBS
+#find_package(libbar REQUIRED) # libbar_INCLUDE_DIRS, libbar_LIBS
 
 # set local and external include directories (allows all #include statements to work)
 include_directories(include
-                    ${UUID_INCLUDE_DIRS})
+  ${libuuid_INCLUDE_DIRS})
 
 # source files to compile into executables
 add_executable(uuid-run
-               src/main.cpp
-               src/example.cpp)
+  src/main.cpp
+  src/example.cpp)
 
 # link libraries to executables
 target_link_libraries(uuid-run
-                      ${UUID_LIBRARIES})
+  ${libuuid_LIBS})
