@@ -21,9 +21,9 @@ find_library(libuuid_LIBS
   )
 
 # find the location of the library headers
-find_path(libuuid_INCLUDE_DIRS uuid/uuid.h
-  /usr/local/include
-  /usr/include
+find_path(libuuid_INCLUDE_DIRS uuid.h
+  /usr/local/include/uuid
+  /usr/include/uuid
   )
 
 if (libuuid_LIBS AND libuuid_INCLUDE_DIRS)
@@ -36,7 +36,8 @@ endif ()
 if (libuuid_FOUND)
   if (NOT libuuid_FIND_QUIETLY)
     # no QUIET argument was passed to find_package
-    message(STATUS "Found libuuid: ${libuuid_LIBS}")
+    message(STATUS "Found libuuid.h:  ${libuuid_INCLUDE_DIRS}/uuid.h")
+    message(STATUS "Found libuuid.so: ${libuuid_LIBS}")
   endif ()
 else ()
   if (libuuid_FIND_REQUIRED)

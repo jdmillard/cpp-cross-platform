@@ -1,12 +1,10 @@
-#include <uuid/uuid.h>
+#include <uuid.h>
 // linux package uuid-dev can be installed with sudo apt install uuid-dev (also part of util-linux-ng package)
 // it gets installed to /usr/include/uuid/uuid.h which is on the default include path
 // move these comments to a dependencies section of readme.md
 
 // TODO:
-// can this be chagned to #include<uuid.h> by changing the cmake script?
 // add cleanup script in build folder, consolidate .gitignore files
-// 
 
 #include "example.h"
 
