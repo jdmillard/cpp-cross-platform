@@ -8,6 +8,8 @@
 
 #include "example.h"
 
+// typedef existing new;
+typedef uuid_t fake_t;
 
 int main(int argc, char **argv)
 {
@@ -17,7 +19,7 @@ int main(int argc, char **argv)
   std::cout << "starting" << std::endl;
   std::cout << std::endl;
 
-  uuid_t allocated; // uuid type
+  fake_t allocated; // uuid type
 
   int aaa = 6;
   uuid_generate(allocated);
@@ -25,6 +27,17 @@ int main(int argc, char **argv)
   std::cout << aaa << std::endl;
 
   std::cout << std::endl << std::endl;
+
+  // make an id class (think of good name for this)
+  // there will be a fake_t member, everything revolves around this member
+  // operator. the fake_t member will point to the type based on the system
+  // the comparison functions will be compiler-defined based on the library
+  // system-level library differences will be abstracted away
+  // I'm not sure what to do about pointers
+
+  // PLAN: use unix/windows/apple libraries for uuid comparison
+  // which means the high-level class needs pounddefine to
+  // force usage of naitive lib functions
 
   // documentation as well as other links for uuid library:
   //https://linux.die.net/man/3/uuid_generate

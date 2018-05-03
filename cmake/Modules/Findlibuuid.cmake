@@ -1,6 +1,6 @@
 # This module finds the Univerally Unique Identifier (UUID) library for UNIX
 # systems. It defines:
-# liblibuuid_FOUND           (find status)
+# liblibuuid_FOUND        (find status)
 # libuuid_LIBS            (locations of shared libraries)
 # libuuid_INCLUDE_DIRS    (locations of library headers)
 
