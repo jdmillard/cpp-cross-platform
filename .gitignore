@@ -1,0 +1,7 @@
+
+# TODO: clean this up
+
+# ignore all the contents of this folder
+/build/*
+# except these
+!/build/clean.sh

@@ -1,38 +1,21 @@
 cmake_minimum_required(VERSION 2.8)
 project(uuid-testing)
+# rename project
 
 # use c++ 11
 set(CMAKE_CXX_STANDARD 11)
 
-# for use with custom modules (not supported by CMake)
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/Modules")
+# set reliable platform flags
+include(cmake/platform.cmake)
 
-# set reliable uniform platform compiler flags
-if(UNIX AND NOT(APPLE))
-    set(CMAKE_LINUX 1)
-else()
-    set(CMAKE_LINUX 0)
-endif()
-
-if(UNIX AND APPLE)
-    set(CMAKE_MACOS 1)
-else()
-    set(CMAKE_MACOS 0)
-endif()
-
-if(WIN32)
-    set(CMAKE_WINDOWS 1)
-else()
-    set(CMAKE_WINDOWS 0)
-endif()
-# TODO: move platform detection to separate script
-# TODO: cause fatal error if OS cannot be detected
-# TODO: use these flags in the Findlibuuid.cmake script
+# add path for local modules
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/modules")
 
 # find "universally unique identifier" library
 find_package(libuuid REQUIRED)
 #find_package(libfoo REQUIRED) # libfoo_INCLUDE_DIRS, libfoo_LIBS
 #find_package(libbar REQUIRED) # libbar_INCLUDE_DIRS, libbar_LIBS
+# TODO: more informed status messages for libuuid that was found
 
 # set local and external include directories (allows all #include statements to work)
 include_directories(include

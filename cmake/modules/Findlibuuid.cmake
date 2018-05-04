@@ -4,6 +4,8 @@
 # libuuid_LIBS            (locations of shared libraries)
 # libuuid_INCLUDE_DIRS    (locations of library headers)
 
+# module scripts take the conventional from of "Find*.cmake"
+
 # set name used to search for shared library
 if(UNIX AND APPLE)
     # macOS
