@@ -19,7 +19,7 @@ if(WIN32)
 else()
     set(CMAKE_WINDOWS 0)
 endif()
-# TODO: move platform detection to separate script (can be done with "include" to call a .cmake file)
+
 # TODO: cause fatal error if OS cannot be detected
 # TODO: use these flags in the Findlibuuid.cmake script
 

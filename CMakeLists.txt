@@ -15,7 +15,6 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/modules")
 find_package(libuuid REQUIRED)
 #find_package(libfoo REQUIRED) # libfoo_INCLUDE_DIRS, libfoo_LIBS
 #find_package(libbar REQUIRED) # libbar_INCLUDE_DIRS, libbar_LIBS
-# TODO: more informed status messages for libuuid that was found
 
 # set local and external include directories (allows all #include statements to work)
 include_directories(include
