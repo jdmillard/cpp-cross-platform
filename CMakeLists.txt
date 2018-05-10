@@ -12,7 +12,7 @@ include(cmake/platform.cmake)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/modules")
 
 # find "universally unique identifier" library
-find_package(libuuid REQUIRED)
+#find_package(libuuid REQUIRED) #windows
 #find_package(libfoo REQUIRED) # libfoo_INCLUDE_DIRS, libfoo_LIBS
 #find_package(libbar REQUIRED) # libbar_INCLUDE_DIRS, libbar_LIBS
 

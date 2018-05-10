@@ -1,4 +1,4 @@
-#include <uuid.h>
+//#include <uuid.h> #windows
 // linux package uuid-dev can be installed with sudo apt install uuid-dev (also part of util-linux-ng package)
 // it gets installed to /usr/include/uuid/uuid.h which is on the default include path
 // TODO: move these comments to a dependencies section of readme.md
@@ -9,7 +9,7 @@
 #include "example.h"
 
 // typedef existing new;
-typedef uuid_t fake_t;
+//typedef uuid_t fake_t; #windows
 
 int main(int argc, char **argv)
 {
@@ -54,17 +54,17 @@ int main(int argc, char **argv)
 
     // new UUID experiments
 
-    std::cout << "starting" << std::endl;
-    std::cout << std::endl;
-
-    fake_t allocated; // uuid type
-
-    int aaa = 6;
-    uuid_generate(allocated);
-    aaa = uuid_is_null(allocated);
-    std::cout << aaa << std::endl;
-
-    std::cout << std::endl << std::endl;
+    // std::cout << "starting" << std::endl;  #windows
+    // std::cout << std::endl;                #windows
+    //                                        #windows
+    // fake_t allocated; // uuid type         #windows
+    //                                        #windows
+    // int aaa = 6;                           #windows
+    // uuid_generate(allocated);              #windows
+    // aaa = uuid_is_null(allocated);         #windows
+    // std::cout << aaa << std::endl;         #windows
+    //                                        #windows
+    // std::cout << std::endl << std::endl;   #windows
 
     // make an id class (think of good name for this)
     // there will be a fake_t member, everything revolves around this member
