@@ -5,3 +5,4 @@
 /build/*
 # except these
 !/build/clean.sh
+!/build/clean.bat
