@@ -1,24 +1,39 @@
-//#include <uuid.h> #windows
-// linux package uuid-dev can be installed with sudo apt install uuid-dev (also part of util-linux-ng package)
-// it gets installed to /usr/include/uuid/uuid.h which is on the default include path
-// TODO: move these comments to a dependencies section of readme.md
 
-// TODO:
-// add cleanup script in build folder, consolidate .gitignore files
+#if CMAKE_LINUX
+#include <uuid.h>
+#endif
+
+#if CMAKE_MACOS
+// TODO
+#endif
+
+#if CMAKE_WINDOWS
+//#include <windows.h> // this seems to just work, but is not required (but does it work without VS installed?)
+#include <objbase.h> // this seems to just work thanks to cmake adding the windows sytem include directories (but does it work without VS installed?)... move to other header
+#endif
+
 
 #include "example.h"
 
+// TODO: test out build on clean windows installation to see if SDK is required
+
+// example typedef:
 // typedef existing new;
-//typedef uuid_t fake_t; #windows
 
 int main(int argc, char **argv)
 {
 
-
-
-    //#ifdef (alternative)
     #if CMAKE_LINUX
     std::cout << "running on linux" << std::endl;
+
+    uuid_t allocated; // uuid type
+
+    int aaa = 6;
+    uuid_generate(allocated);
+    aaa = uuid_is_null(allocated);
+    std::cout << aaa << std::endl;
+
+    std::cout << std::endl << std::endl;
     #endif
 
     #if CMAKE_MACOS
@@ -27,10 +42,13 @@ int main(int argc, char **argv)
 
     #if CMAKE_WINDOWS
     std::cout << "running on windows" << std::endl;
+
+    GUID allocated;
+    CoCreateGuid(&allocated);
+
     #endif
 
-    // TODO: test these flags on the platforms
-    // TODO: use these flags in dedicated header for include statements
+    // TODO: test these flags on macOS
 
     // PLAN
     // we have a paved path for using naitive system libraries for uuids
@@ -50,25 +68,13 @@ int main(int argc, char **argv)
     // https://stackoverflow.com/a/15179513
     // and create a test that makes sure the time extraction method works (test will have a hardcoded UUID value)
 
-    // std::cout << UNIT_TESTING << std::endl;
-
     // new UUID experiments
 
-    // std::cout << "starting" << std::endl;  #windows
-    // std::cout << std::endl;                #windows
-    //                                        #windows
-    // fake_t allocated; // uuid type         #windows
-    //                                        #windows
-    // int aaa = 6;                           #windows
-    // uuid_generate(allocated);              #windows
-    // aaa = uuid_is_null(allocated);         #windows
-    // std::cout << aaa << std::endl;         #windows
-    //                                        #windows
-    // std::cout << std::endl << std::endl;   #windows
+
 
     // make an id class (think of good name for this)
-    // there will be a fake_t member, everything revolves around this member
-    // operator. the fake_t member will point to the type based on the system
+    // there will be a uuid_t member, everything revolves around this member
+    // operator. the uuid_t member will point to the type based on the system
     // the comparison functions will be compiler-defined based on the library
     // system-level library differences will be abstracted away
     // I'm not sure what to do about pointers

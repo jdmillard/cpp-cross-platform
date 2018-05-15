@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(uuid-testing)
-# rename project
+# TODO: rename project
 
 # use c++ 11
 set(CMAKE_CXX_STANDARD 11)
@@ -12,11 +12,11 @@ include(cmake/platform.cmake)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/modules")
 
 # find "universally unique identifier" library
-#find_package(libuuid REQUIRED) #windows
+find_package(libuuid REQUIRED)
 #find_package(libfoo REQUIRED) # libfoo_INCLUDE_DIRS, libfoo_LIBS
 #find_package(libbar REQUIRED) # libbar_INCLUDE_DIRS, libbar_LIBS
 
-# set local and external include directories (allows all #include statements to work)
+# set local and external include directories
 include_directories(include
     ${libuuid_INCLUDE_DIRS})
 

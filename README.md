@@ -17,6 +17,8 @@ Below you will find the build and run instructions for each major operating syst
 
 linux notes here (has been tested on version ...)
 
+linux package uuid-dev can be installed with `sudo apt install uuid-dev` (also part of util-linux-ng package)
+
 TODO: clean this up
 ```bash
 cd build/
@@ -32,7 +34,9 @@ If not already installed, install [CMake](https://cmake.org/download/ "Official 
 
 *Without Visual Studio*
 
-First we'll cover how to build and run without Visual Studio. This process is the most "Linuxy" because it uses MinGW (Minimalist GNU for Windows). Install [MinGW](http://www.mingw.org/ "Official MinGW Website"). After the installer is set up, launch it, select the required packages, and install (by clicking "Installation > Apply Changes") the following under "Basic Setup":
+First we'll cover how to build and run without Visual Studio. The Windows UUID [library](https://msdn.microsoft.com/en-us/library/ms923850.aspx "ole32 Module Documentation") comes installed by default, but the link library and header files (which are small files) are only available through the Visual Studio SDK which is [free](https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2017-relnotes "Visual Studio Community 2017"). You'll need it installed, but no Visual Studio utilities or services will be executed to link, compile, or run *this method*. **Note that the SDK is only needed to provide the header; the resulting executables will work on plain Windows machines without the special SDK installed**. When installing Visual Studio (free version or otherwise), be sure to install the "Desktop development with C++" workload.
+
+This process is the most "Linuxy" because it uses MinGW (Minimalist GNU for Windows). Install [MinGW](http://www.mingw.org/ "Official MinGW Website"). After the installer is set up, launch it, select the required packages, and install (by clicking "Installation > Apply Changes") the following under "Basic Setup":
 * `ming32-base` (a basic MinGW installation)
 * `ming32-gcc-g++` (the GNU C++ compiler)
 * `ming32-gccobjc` (the GNU objective-C compiler)
@@ -80,9 +84,8 @@ TODO: make cleanup script for windows
 
 ---
 #### macOS
-
 macOS notes here
 
 ### Resource Links
-* [Link](https://stackoverflow.com/)
-* [Example Documentation](https://en.wikipedia.org/wiki/Kalman_filter)
+* [ole32 Module (Windows Only)](https://msdn.microsoft.com/en-us/library/ms923850.aspx "ole32 Module Documentation")
+* [CoCreateGuid (Windows Only)](https://msdn.microsoft.com/en-us/library/ms886229.aspx "CoCreateGuid Documentation")

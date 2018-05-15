@@ -1,17 +1,9 @@
-message(STATUS "hi")
+# set custom operating system flags
 
-
-# set reliable uniform platform compiler flags
 if(UNIX AND NOT(APPLE))
     set(CMAKE_LINUX 1)
 else()
     set(CMAKE_LINUX 0)
-endif()
-
-if(UNIX AND APPLE)
-    set(CMAKE_MACOS 1)
-else()
-    set(CMAKE_MACOS 0)
 endif()
 
 if(WIN32)
@@ -20,8 +12,11 @@ else()
     set(CMAKE_WINDOWS 0)
 endif()
 
-# TODO: cause fatal error if OS cannot be detected
-# TODO: use these flags in the Findlibuuid.cmake script
+if(UNIX AND APPLE)
+    set(CMAKE_MACOS 1)
+else()
+    set(CMAKE_MACOS 0)
+endif()
 
-# TODO: add clean status messages for the OS that was detected and
-# cause cmake to stop if OS type could not be recognized
+# TODO: cause fatal error if OS cannot be detected (if all flags are false)
+# TODO: add clean status messages for the OS that was detected
