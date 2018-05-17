@@ -22,6 +22,7 @@ elseif(CMAKE_WINDOWS)
     # the header is objbase.h          (no file location, abstracted by SDK)
 
     # set find status to true, print library information, and end this script
+    # TODO: HOW TO DETECT WINDOWS SDK?
     set(libuuid_FOUND TRUE)
     if(NOT libuuid_FIND_QUIETLY)
         # no QUIET argument was passed to find_package
@@ -74,7 +75,6 @@ if (libuuid_FOUND)
         # no QUIET argument was passed to find_package
         message(STATUS "Found libuuid.h:  ${libuuid_INCLUDE_DIRS}/${libuuid_LOCAL_HEADER_NAME}")
         message(STATUS "Found libuuid.so: ${libuuid_LIBS}")
-        # TODO: get info from shared library such as version information and name (still haven't figured this out)
         # TODO: test the QUIET logic
     endif ()
 else ()

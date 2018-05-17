@@ -1,24 +1,29 @@
-# include <iostream>
-# include <math.h>
+#pragma once
 
-// TODO: pragma once or alternative
+#if CMAKE_LINUX
+#include <uuid.h>
+#endif
 
-// os-specific typdef for internal uuid type
+#if CMAKE_MACOS
+// TODO
+#endif
 
-// how to run this with lcm, doing monte carlo trials?
-// would require a centralized real-time performance observer
-// idea: allow each node 2 modes:
-// central clock publishes time out frequently, nodes refer to that as sim time
-// to time is published,
+#if CMAKE_WINDOWS
+//#include <windows.h> // this seems to just work, but is not required (but does it work without VS installed?)
+#include <objbase.h> // this seems to just work thanks to cmake adding the windows sytem include directories (but does it work without VS installed?)... move to other header
+#endif
 
+// os-specific typdef for internal uuid type (in block above)
+// example typedef:
+// typedef existing new;
 
 class identifier
 {
 public:
     identifier();
-    identifier(char *in, bool time);
-    identifier(std::string in, bool time);
-    adopt(identifier in); // is this allowed?
+    // identifier(char *in, bool time);
+    // identifier(std::string in, bool time);
+    // adopt(identifier in); // is this allowed?
 
     // public accessors and comparators inside the functions #defines handle the appropriate commands
     // how best to attach a time? use a specific type of id and extract it? dedicated age save? how to generate uuid using sim time?
@@ -27,9 +32,11 @@ public:
     // operator overloading:
     // greater than (compare time) equal to (compare id)
     // swallow
-private:
 
-    int test2;
+private:
+    void generate_uuid();
+    void print_uuid();
+    int test2_;
     // private native holder
     //type_fake_t actual_id_; // type_fake_t is typdef'd according to #define
     //std::vector<type_fake_t> vec_; // vector of inherited id's
@@ -41,21 +48,35 @@ private:
 // time (perhaps immediately extracted from the id after creation) how to use sim time?
 // absorbed ids
 
-Init with:
-char string, bool (time)
-std:string, bool (time)
-Nothing, generate new
+// Init with:
+// char string, bool (time)
+// std:string, bool (time)
+// Nothing, generate new
+//
+// Operator overloading == to compare if id-new exists
+// see what types of functions each platform library provides
 
-Operator overloading == to compare if id-new exists
+/*
+linux:
+uuid_compare
+https://linux.die.net/man/3/uuid_generate
+
+windows:
+IsEqualGUID
+https://msdn.microsoft.com/en-us/library/windows/desktop/ms680575(v=vs.85).aspx
+
+macos:
+
+
+*/
 
 // OPERATORS:
 // instantiate-generate
 // instantiate-populate with existing
 // compare (same as operator overloading ==? need to think about this)
-// absorb based on compare logic
+// absorb/adopt other identifier+timer (possible to have input object?)
 // cout
-// == logic
 
 // STORY:
-// track messages come in, each get thrown into track objects
+// track messages come in with single uuid+timestap, each get thrown into track objects
 //
