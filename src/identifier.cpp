@@ -1,4 +1,4 @@
-#include <iostream>
+#include <iostream> // TODO: remove after cout is no longer needed
 #include "identifier.h"
 
 identifier::identifier()
@@ -22,30 +22,23 @@ identifier::identifier()
 
 void identifier::generate_uuid()
 {
-    test2_ = 5;
-
-
-
     #if CMAKE_LINUX
     std::cout << "running on linux" << std::endl;
-    uuid_t allocated; // uuid type
-    int aaa = 6;
+    id_raw_t allocated;
     uuid_generate(allocated);
-    aaa = uuid_is_null(allocated);
-    std::cout << aaa << std::endl;
+    std::cout << uuid_is_null(allocated) << std::endl;
     #endif
 
     #if CMAKE_WINDOWS
     std::cout << "running on windows" << std::endl;
-    GUID allocated;
+    id_raw_t allocated;
     CoCreateGuid(&allocated);
     #endif
 
     #if CMAKE_MACOS
     std::cout << "running on mac" << std::endl;
+    // TODO
     #endif
-
-
 }
 
 void identifier::print_uuid()
