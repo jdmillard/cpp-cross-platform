@@ -48,6 +48,10 @@ private:
 linux:
 uuid_compare
 https://linux.die.net/man/3/uuid_generate
+void uuid_generate(uuid_t out);
+void uuid_generate_random(uuid_t out); ---------
+void uuid_generate_time(uuid_t out);
+int uuid_generate_time_safe(uuid_t out);
 
 windows:
 IsEqualGUID
