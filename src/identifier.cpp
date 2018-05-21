@@ -1,5 +1,6 @@
-#include <iostream> // TODO: remove after cout is no longer needed
 #include "identifier.h"
+
+#include <iostream> // for debugging, TODO: remove after cout not needed
 
 identifier::identifier()
 {
@@ -33,6 +34,17 @@ void identifier::generate_uuid()
     std::cout << "running on windows" << std::endl;
     id_raw_t allocated;
     CoCreateGuid(&allocated);
+    CoCreateGuid(&id_);
+    std::chrono::system_clock::time_point a = std::chrono::system_clock::now();
+    std::chrono::system_clock::duration b = a.time_since_epoch();
+    timestamp_ = std::chrono::duration_cast<std::chrono::milliseconds>(b);
+
+    std::chrono::seconds c = std::chrono::duration_cast<std::chrono::seconds>(b);
+    std::chrono::milliseconds d = std::chrono::duration_cast<std::chrono::milliseconds>(b);
+    std::cout << c.count() << std::endl;
+    std::cout << d.count() << std::endl;
+
+    // TODO: figure out how to make this a double, or is that a bad idea for future comparison?
     #endif
 
     #if CMAKE_MACOS

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <chrono>
 
 #if CMAKE_LINUX
 #include <uuid.h>
@@ -40,6 +41,7 @@ private:
     void print_uuid();
 
     id_raw_t id_;
+    std::chrono::milliseconds timestamp_;
     std::vector<id_raw_t> aliases_;
     // TODO: time
 };
