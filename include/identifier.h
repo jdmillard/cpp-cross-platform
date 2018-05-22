@@ -18,7 +18,7 @@ typedef uuid_t id_raw_t;
 typedef GUID id_raw_t;
 #endif
 
-// todo: typedef identifier to id_t
+// todo: typedef identifier class to id_t
 
 class identifier
 {
@@ -51,9 +51,7 @@ linux:
 uuid_compare
 https://linux.die.net/man/3/uuid_generate
 void uuid_generate(uuid_t out);
-void uuid_generate_random(uuid_t out); ---------
-void uuid_generate_time(uuid_t out);
-int uuid_generate_time_safe(uuid_t out);
+void uuid_generate_random(uuid_t out); -- does this come closest to windows?
 
 windows:
 IsEqualGUID

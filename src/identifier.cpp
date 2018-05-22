@@ -4,7 +4,7 @@
 
 identifier::identifier()
 {
-    std::cout << "instantiated identifier" << std::endl;
+    std::cout << "instantiating identifier object" << std::endl;
 
     generate_uuid();
     print_uuid();
@@ -24,18 +24,26 @@ identifier::identifier()
 void identifier::generate_uuid()
 {
     #if CMAKE_LINUX
-    std::cout << "running on linux" << std::endl;
+    std::cout << "running on linux" << std::endl; // temporary
     id_raw_t allocated;
     uuid_generate(allocated);
-    std::cout << uuid_is_null(allocated) << std::endl;
+    uuid_generate(id_);
     #endif
 
     #if CMAKE_WINDOWS
-    std::cout << "running on windows" << std::endl;
+    std::cout << "running on windows" << std::endl; // temporary
     id_raw_t allocated;
     CoCreateGuid(&allocated);
     CoCreateGuid(&id_);
-    std::chrono::system_clock::time_point a = std::chrono::system_clock::now();
+    #endif
+
+    #if CMAKE_MACOS
+    std::cout << "running on mac" << std::endl; // temporary
+    // TODO
+    #endif
+
+    // timestamp
+    std::chrono::system_clock::time_point a = std::chrono::system_clock::now(); // << actual timestamp occurs here
     std::chrono::system_clock::duration b = a.time_since_epoch();
     timestamp_ = std::chrono::duration_cast<std::chrono::milliseconds>(b);
 
@@ -43,17 +51,14 @@ void identifier::generate_uuid()
     std::chrono::milliseconds d = std::chrono::duration_cast<std::chrono::milliseconds>(b);
     std::cout << c.count() << std::endl;
     std::cout << d.count() << std::endl;
+    std::cout << timestamp_.count() << std::endl;
 
-    // TODO: figure out how to make this a double, or is that a bad idea for future comparison?
-    #endif
-
-    #if CMAKE_MACOS
-    std::cout << "running on mac" << std::endl;
-    // TODO
-    #endif
+    // figure out the best type for timestamp
+    // TODO: figure out how to make it that type
 }
 
 void identifier::print_uuid()
 {
+    // remove this function and, instead overload the << operator
     std::cout << "print uuid here" << std::endl;
 }
