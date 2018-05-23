@@ -41,9 +41,9 @@ private:
     void print_uuid();
 
     id_raw_t id_;
-    std::chrono::milliseconds timestamp_;
     std::vector<id_raw_t> aliases_;
-    // TODO: time
+    std::chrono::system_clock::time_point timestamp_raw_;
+    std::chrono::system_clock::duration timestamp_;
 };
 
 /*

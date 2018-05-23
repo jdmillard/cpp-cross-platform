@@ -43,18 +43,22 @@ void identifier::generate_uuid()
     #endif
 
     // timestamp
-    std::chrono::system_clock::time_point a = std::chrono::system_clock::now(); // << actual timestamp occurs here
-    std::chrono::system_clock::duration b = a.time_since_epoch();
-    timestamp_ = std::chrono::duration_cast<std::chrono::milliseconds>(b);
+    timestamp_raw_ = std::chrono::high_resolution_clock::now();
+    timestamp_ = timestamp_raw_.time_since_epoch();
 
+    std::chrono::system_clock::duration b = timestamp_;
     std::chrono::seconds c = std::chrono::duration_cast<std::chrono::seconds>(b);
     std::chrono::milliseconds d = std::chrono::duration_cast<std::chrono::milliseconds>(b);
+    std::chrono::nanoseconds e = std::chrono::duration_cast<std::chrono::nanoseconds>(b);
+
+    std::cout << b.count() << std::endl;
     std::cout << c.count() << std::endl;
     std::cout << d.count() << std::endl;
-    std::cout << timestamp_.count() << std::endl;
+    std::cout << e.count() << std::endl;
 
-    // figure out the best type for timestamp
-    // TODO: figure out how to make it that type
+    // TODO:
+    // use the raw time_point and duration types for members
+    // for operator overloading, convert to seconds with double precision
 }
 
 void identifier::print_uuid()
