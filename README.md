@@ -4,7 +4,7 @@ The purpose of this repository is to host an example CMake project that works cr
 
 ### Some Specifics
 
-Because the native system libraries are used, there are no software dependencies.
+Because the native system libraries are used, there are no software dependencies outside the OS that are required to run the resulting executable.
 
 The demonstrated functionality centers around creation and storage of [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier "UUID Wikipedia Page")s (universally unique identifiers) which are ubiquitous in software/tech. Because of their widespread use in many applications, each OS comes with its own shared library (`.so`, `.dll`, etc) which can be used to generate these character strings. However, these libraries have different names and APIs in each OS. Further, they are not supported by CMake which gives us an opportunity to present an example custom module that finds and links the desired library regardless of the current OS.
 
