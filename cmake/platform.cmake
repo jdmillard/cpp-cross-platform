@@ -19,4 +19,5 @@ else()
 endif()
 
 # TODO: cause fatal error if OS cannot be detected (if all flags are false)
+# and make sure only one is set!
 # TODO: add clean status messages for the OS that was detected

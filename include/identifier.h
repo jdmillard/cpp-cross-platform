@@ -9,41 +9,36 @@
 typedef uuid_t id_raw_t;
 #endif
 
+#if CMAKE_WINDOWS
+// #include <windows.h>
+#include <objbase.h>
+#include <iomanip> // std::setfill; std::setw
+#include <sstream> // for std::stringstream
+typedef GUID id_raw_t;
+#endif
+
 #if CMAKE_MACOS
 // TODO
 #endif
 
-#if CMAKE_WINDOWS
-// #include <windows.h> // this seems to just work, but is not required (but does it work without VS installed?)
-#include <objbase.h> // this seems to just work thanks to cmake adding the windows sytem include directories (but does it work without VS installed?)... move to other header
-// #include <rpc.h> // used for UuidToString function
-// #pragma comment(lib, "Rpcrt4.lib")
-
-#include <iomanip> // for std::setfill('0') << std::setw(
-#include <sstream> // for std::stringstream
-
-// #include <rpcdce.h>
-// #include <stdafx.h>
-typedef GUID id_raw_t;
-#endif
-
-// todo: typedef identifier class to id_t
-// todo: namespace?
+// TODO: typedef identifier class to id_t
+// TODO: namespace?
+// TODO: switch to <root>/include/<project_name>/<.h files>
+// TODO: switch .hpp naming
+// TODO: decide on pragmaonce vs ifndef
 
 class identifier
 {
 public:
     identifier();
-    // identifier(char *in, bool time);
-    // identifier(std::string in, bool time);
+    // identifier(char *in, double time);
+    // identifier(std::string in, double time); // or char*
     // adopt(identifier in); // is this allowed?
 
     // friend means its not a class member (could easily delcare outside the class)
     friend std::ostream& operator<<(std::ostream& stream, const identifier &id);
 
     std::string get_string() const;
-    // TODO: look into const keyword placement convention
-
 
     // public accessors and comparators inside the functions #defines handle the appropriate commands
     // how best to attach a time? use a specific type of id and extract it? dedicated age save? how to generate uuid using sim time?
@@ -51,14 +46,14 @@ public:
     // constructor for initializing with existing string id (from subscribe message) - possible with system libraries?
     // operator overloading:
     // greater than (compare time) equal to (compare id)
-    // swallow
+    // swallow/adopt
+        // swallow is to add it to the list of later tracks
+        // adopt is to use the new id/timestamp
 
 private:
     void generate_uuid();
-    void print_uuid();
 
     // TODO: data passed by ref?
-    // TODO: only needed for windows!
     template <typename T>
     void data_to_hex_stream(std::stringstream &stream, T data) const;
 
