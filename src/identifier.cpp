@@ -58,9 +58,17 @@ void identifier::generate_uuid()
 std::string identifier::get_string() const
 {
     // provide the identifier in standard string format
+    // TODO: add a check to make sure the string isn't empty
 
     #if CMAKE_LINUX
-    // the unparse command puts to char*
+
+    char test2[37];
+    uuid_unparse_lower(id_, test2);
+
+    std::stringstream stream123;
+    stream123 << test2;
+
+    return stream123.str();
     #endif
 
     #if CMAKE_WINDOWS
@@ -84,7 +92,7 @@ std::string identifier::get_string() const
     #endif
 
     #if CMAKE_MACOS
-    // TODO
+    // not yet explored
     #endif
 }
 

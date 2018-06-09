@@ -1,8 +1,10 @@
 #pragma once
 
 #include <vector>
-#include <chrono>
+#include <chrono> // for timestamps
 #include <iostream>
+#include <sstream> // for std::stringstream
+#include <iomanip> // std::setfill; std::setw
 
 #if CMAKE_LINUX
 #include <uuid.h>
@@ -12,8 +14,6 @@ typedef uuid_t id_raw_t;
 #if CMAKE_WINDOWS
 // #include <windows.h>
 #include <objbase.h>
-#include <iomanip> // std::setfill; std::setw
-#include <sstream> // for std::stringstream
 typedef GUID id_raw_t;
 #endif
 
