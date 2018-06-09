@@ -23,7 +23,7 @@ include_directories(include
 # source files to compile into executables
 add_executable(uuid-run
     src/main.cpp
-    src/example.cpp)
+    src/identifier.cpp)
 
 # link libraries to executables
 target_link_libraries(uuid-run

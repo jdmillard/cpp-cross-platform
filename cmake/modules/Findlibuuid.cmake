@@ -16,7 +16,7 @@ if(CMAKE_LINUX)
     set(libuuid_LOCAL_HEADER_PATHS /usr/include/uuid /usr/local/include/uuid)
 
 elseif(CMAKE_WINDOWS)
-    # the link library and header are automatically added CMake
+    # the link library and header are automatically added by CMake
     # library is expected to be        C:\Windows\System32\ole32.dll
     # the link library is ole32.lib    (no file location, abstracted by SDK)
     # the header is objbase.h          (no file location, abstracted by SDK)
@@ -74,7 +74,6 @@ if (libuuid_FOUND)
         # no QUIET argument was passed to find_package
         message(STATUS "Found libuuid.h:  ${libuuid_INCLUDE_DIRS}/${libuuid_LOCAL_HEADER_NAME}")
         message(STATUS "Found libuuid.so: ${libuuid_LIBS}")
-        # TODO: get info from shared library such as version information and name (still haven't figured this out)
         # TODO: test the QUIET logic
     endif ()
 else ()

@@ -4,7 +4,7 @@ The purpose of this repository is to host an example CMake project that works cr
 
 ### Some Specifics
 
-Because the native system libraries are used, there are no software dependencies.
+Because the native system libraries are used, there are no software dependencies outside the OS that are required to run the resulting executable.
 
 The demonstrated functionality centers around creation and storage of [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier "UUID Wikipedia Page")s (universally unique identifiers) which are ubiquitous in software/tech. Because of their widespread use in many applications, each OS comes with its own shared library (`.so`, `.dll`, etc) which can be used to generate these character strings. However, these libraries have different names and APIs in each OS. Further, they are not supported by CMake which gives us an opportunity to present an example custom module that finds and links the desired library regardless of the current OS.
 
@@ -65,6 +65,8 @@ In the future after making changes to code, you should only need to run the last
 
 *With Visual Studio*
 
+NOTE: UNDER CONSTRUCTION
+
 Now we'll cover how to integrate this project with Visual Studio. Note that Visual Studio 2017 supports the creation of CMake projects, but this example avoids using such features because we don't want Visual Studio changing the `CMakeLists.txt` file and ruining our compatibility with Linux and macOS. Rather, we'd like CMake to generate (project/solution/filter files as well as links to libraries). This relegates Visual Studio to editor and debugger.
 
 Warning: Changes to project configuration via Visual Studio will not get "saved". Ideally, perform all library linking and dependency management through CMake.
@@ -85,6 +87,10 @@ TODO: make cleanup script for windows
 ---
 #### macOS
 macOS notes here
+
+### Style Guide
+
+Put note here about style guide. standard library
 
 ### Resource Links
 * [ole32 Module (Windows Only)](https://msdn.microsoft.com/en-us/library/ms923850.aspx "ole32 Module Documentation")
