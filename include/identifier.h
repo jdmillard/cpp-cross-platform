@@ -35,9 +35,6 @@ public:
     // identifier(std::string in, double time); // or char*
     // adopt(identifier in); // is this allowed?
 
-    // friend means its not a class member (could easily delcare outside the class)
-    friend std::ostream& operator<<(std::ostream& stream, const identifier &id);
-
     std::string get_string() const;
 
     // public accessors and comparators inside the functions #defines handle the appropriate commands
@@ -50,12 +47,15 @@ public:
         // swallow is to add it to the list of later tracks
         // adopt is to use the new id/timestamp
 
+    // friend means its not a class member (could easily delcare outside the class)
+    friend std::ostream& operator<<(std::ostream& stream, const identifier &id);
+
 private:
     void generate_uuid();
 
     // TODO: data passed by ref?
     template <typename T>
-    void data_to_hex_stream(std::stringstream &stream, T data) const;
+    void hex_stream(std::stringstream &stream, T data) const;
 
     id_raw_t id_;
     std::vector<id_raw_t> aliases_;

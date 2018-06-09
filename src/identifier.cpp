@@ -58,46 +58,41 @@ void identifier::generate_uuid()
 std::string identifier::get_string() const
 {
     // provide the identifier in standard string format
-    // TODO: add a check to make sure the string isn't empty
+    std::stringstream stream;
 
     #if CMAKE_LINUX
-
-    char test2[37];
-    uuid_unparse_lower(id_, test2);
-
-    std::stringstream stream123;
-    stream123 << test2;
-
-    return stream123.str();
+    char id_raw[37];
+    uuid_unparse_lower(id_, id_raw);
+    stream << id_raw;
     #endif
 
     #if CMAKE_WINDOWS
-    std::stringstream stream123;
-    data_to_hex_stream(stream123, id_.Data1);
-    stream123 << "-";
-    data_to_hex_stream(stream123, id_.Data2);
-    stream123 << "-";
-    data_to_hex_stream(stream123, id_.Data3);
-    stream123 << "-";
-    data_to_hex_stream(stream123, id_.Data4[0]);
-    data_to_hex_stream(stream123, id_.Data4[1]);
-    stream123 << "-";
-    data_to_hex_stream(stream123, id_.Data4[2]);
-    data_to_hex_stream(stream123, id_.Data4[3]);
-    data_to_hex_stream(stream123, id_.Data4[4]);
-    data_to_hex_stream(stream123, id_.Data4[5]);
-    data_to_hex_stream(stream123, id_.Data4[6]);
-    data_to_hex_stream(stream123, id_.Data4[7]);
-    return stream123.str();
+    hex_stream(stream, id_.Data1);
+    stream << "-";
+    hex_stream(stream, id_.Data2);
+    stream << "-";
+    hex_stream(stream, id_.Data3);
+    stream << "-";
+    hex_stream(stream, id_.Data4[0]);
+    hex_stream(stream, id_.Data4[1]);
+    stream << "-";
+    hex_stream(stream, id_.Data4[2]);
+    hex_stream(stream, id_.Data4[3]);
+    hex_stream(stream, id_.Data4[4]);
+    hex_stream(stream, id_.Data4[5]);
+    hex_stream(stream, id_.Data4[6]);
+    hex_stream(stream, id_.Data4[7]);
     #endif
 
     #if CMAKE_MACOS
     // not yet explored
     #endif
+
+    return stream.str();
 }
 
 template <typename T>
-void identifier::data_to_hex_stream(std::stringstream &stream, T data) const
+void identifier::hex_stream(std::stringstream &stream, T data) const
 {
     // given raw data, convert the value to a hex string
     // (compiles for all platforms, only required by Windows)
