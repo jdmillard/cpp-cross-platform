@@ -5,21 +5,22 @@ identifier::identifier()
     std::cout << "instantiating identifier object" << std::endl;
 
     generate_uuid();
-
-    // IDs FOR TRACKS:
-    // various unsigned chars come through subscription (the first one is the track id and subsequent ones are adopted ids)
-    // throw all of these into a new id class
-    // compare local id classes to see if already equal (return bool)
-    // after additional state checks, etc, once confirmed the same, a way to merge
-
-    // if timestamps are to be extracted from the UUID, use this post:
-    // https://stackoverflow.com/a/15179513
-    // and create a test that makes sure the time extraction method works (test will have a hardcoded UUID value)
-
 }
 
 void identifier::generate_uuid()
 {
+    // timestamp
+    timestamp_raw_ = std::chrono::high_resolution_clock::now();
+    timestamp_ = timestamp_raw_.time_since_epoch();
+    // std::chrono::seconds c = std::chrono::duration_cast<std::chrono::seconds>(timestamp_);
+    // std::chrono::milliseconds d = std::chrono::duration_cast<std::chrono::milliseconds>(timestamp_);
+    // std::chrono::nanoseconds e = std::chrono::duration_cast<std::chrono::nanoseconds>(timestamp_);
+    // std::cout << timestamp_.count() << std::endl; // (nanoseconds)
+    // std::cout << c.count() << std::endl;
+    // std::cout << d.count() << std::endl;
+    // std::cout << e.count() << std::endl;
+
+    // uuid
     #if CMAKE_LINUX
     std::cout << "running on linux" << std::endl; // temporary
     uuid_generate(id_);
@@ -34,28 +35,9 @@ void identifier::generate_uuid()
     std::cout << "running on mac" << std::endl; // temporary
     // TODO: not yet tested
     #endif
-
-    // timestamp
-    timestamp_raw_ = std::chrono::high_resolution_clock::now();
-    timestamp_ = timestamp_raw_.time_since_epoch();
-
-    std::chrono::system_clock::duration b = timestamp_;
-    std::chrono::seconds c = std::chrono::duration_cast<std::chrono::seconds>(b);
-    std::chrono::milliseconds d = std::chrono::duration_cast<std::chrono::milliseconds>(b);
-    std::chrono::nanoseconds e = std::chrono::duration_cast<std::chrono::nanoseconds>(b);
-
-    std::cout << b.count() << std::endl;
-    std::cout << c.count() << std::endl;
-    std::cout << d.count() << std::endl;
-    std::cout << e.count() << std::endl;
-
-    // TODO:
-    // use the raw time_point and duration types for members
-    // for operator overloading, convert to seconds with double precision
-    // put before the call to creation
 }
 
-std::string identifier::get_string() const
+std::string identifier::get_id_string() const
 {
     // provide the identifier in standard string format
     std::stringstream stream;
@@ -91,6 +73,13 @@ std::string identifier::get_string() const
     return stream.str();
 }
 
+double identifier::get_ts_double() const
+{
+    // provide the timestamp in standard double format
+    // timestamp_.count() is an integer count of nanoseconds
+    return timestamp_.count()/(double)1000000000;
+}
+
 template <typename T>
 void identifier::hex_stream(std::stringstream &stream, T data) const
 {
@@ -102,7 +91,11 @@ void identifier::hex_stream(std::stringstream &stream, T data) const
 
 std::ostream& operator<<(std::ostream& stream, const identifier &id)
 {
-    // TODO: why is stream passed by reference, but then also returned?
-    stream << id.get_string();
+    // when cout is used on the object, return this format:
+    // id: a6795f2a-a35b-47e7-b0b0-471fe3ec588b   |   t: 1528572914.2186351 s
+    stream << std::setprecision(std::numeric_limits<double>::digits10+2);
+    stream << "id: " << id.get_id_string();
+    stream << "   |   ";
+    stream << "t: " << id.get_ts_double() << " s";
     return stream;
 }

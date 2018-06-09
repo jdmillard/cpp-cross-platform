@@ -35,7 +35,8 @@ public:
     // identifier(std::string in, double time); // or char*
     // adopt(identifier in); // is this allowed?
 
-    std::string get_string() const;
+    std::string get_id_string() const;
+    double get_ts_double() const;
 
     // public accessors and comparators inside the functions #defines handle the appropriate commands
     // how best to attach a time? use a specific type of id and extract it? dedicated age save? how to generate uuid using sim time?
@@ -47,13 +48,19 @@ public:
         // swallow is to add it to the list of later tracks
         // adopt is to use the new id/timestamp
 
+    // IDs FOR TRACKS:
+    // various unsigned chars come through subscription (the first one is the track id and subsequent ones are adopted ids)
+    // throw all of these into a new id class
+    // compare local id classes to see if already equal (return bool)
+    // after additional state checks, etc, once confirmed the same, a way to merge
+
     // friend means its not a class member (could easily delcare outside the class)
     friend std::ostream& operator<<(std::ostream& stream, const identifier &id);
 
 private:
     void generate_uuid();
 
-    // TODO: data passed by ref?
+    // TODO: pass data by ref?
     template <typename T>
     void hex_stream(std::stringstream &stream, T data) const;
 
