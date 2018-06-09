@@ -21,7 +21,6 @@ elseif(CMAKE_WINDOWS)
     # the link library is ole32.lib    (no file location, abstracted by SDK)
     # the header is objbase.h          (no file location, abstracted by SDK)
 
-    # TODO: DETECT WINDOWS SDK
     # set find status to true, print library information, and end this script
     set(libuuid_FOUND TRUE)
     if(NOT libuuid_FIND_QUIETLY)
