@@ -2,12 +2,29 @@
 
 identifier::identifier()
 {
-    std::cout << "instantiating identifier object" << std::endl;
+    std::cout << "instantiating, using system clock" << std::endl;
 
+    generate_time();
     generate_uuid();
 }
 
-void identifier::generate_uuid()
+identifier::identifier(double sim_time)
+{
+    // in non-real-time execution, a sim time will be used for the timestamp
+    // also, could be used in the case that a report timestamp needs to be used
+    std::cout << "instantiating, given a sim time" << std::endl;
+    std::cout << sim_time << std::endl;
+    // why would I want this form of instantiation?
+
+    // note: sim clock needs to provide the time since epoch format as a double
+
+    // parse the provided double into duration since epoch (to match system-generated setup)
+    // TODO: create a function called reconstruct_time? (could be used here and in the string versions)
+    // TODO: the other forms would use reconstruct_uuid as well.
+    generate_uuid();
+}
+
+void identifier::generate_time()
 {
     // timestamp
     timestamp_raw_ = std::chrono::high_resolution_clock::now();
@@ -19,7 +36,12 @@ void identifier::generate_uuid()
     // std::cout << c.count() << std::endl;
     // std::cout << d.count() << std::endl;
     // std::cout << e.count() << std::endl;
+}
 
+
+
+void identifier::generate_uuid()
+{
     // uuid
     #if CMAKE_LINUX
     std::cout << "running on linux" << std::endl; // temporary
@@ -37,7 +59,7 @@ void identifier::generate_uuid()
     #endif
 }
 
-std::string identifier::get_id_string() const
+std::string identifier::get_uuid_string() const
 {
     // provide the identifier in standard string format
     std::stringstream stream;
@@ -73,7 +95,7 @@ std::string identifier::get_id_string() const
     return stream.str();
 }
 
-double identifier::get_ts_double() const
+double identifier::get_time_double() const
 {
     // provide the timestamp in standard double format
     // timestamp_.count() is an integer count of nanoseconds
@@ -94,8 +116,8 @@ std::ostream& operator<<(std::ostream& stream, const identifier &id)
     // when cout is used on the object, return this format:
     // id: a6795f2a-a35b-47e7-b0b0-471fe3ec588b   |   t: 1528572914.2186351 s
     stream << std::setprecision(std::numeric_limits<double>::digits10+2);
-    stream << "id: " << id.get_id_string();
+    stream << "id: " << id.get_uuid_string();
     stream << "   |   ";
-    stream << "t: " << id.get_ts_double() << " s";
+    stream << "t: " << id.get_time_double() << " s";
     return stream;
 }

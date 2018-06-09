@@ -31,12 +31,12 @@ class identifier
 {
 public:
     identifier();
-    // identifier(char *in, double time);
-    // identifier(std::string in, double time); // or char*
-    // adopt(identifier in); // is this allowed?
+    identifier(double sim_time);
+    // identifier(char *in, double time); // for when remote id is received over subcription channel
+    // identifier(std::string in, double time); // see if it's possible to template the string input
 
-    std::string get_id_string() const;
-    double get_ts_double() const;
+    std::string get_uuid_string() const;
+    double get_time_double() const;
 
     // public accessors and comparators inside the functions #defines handle the appropriate commands
     // how best to attach a time? use a specific type of id and extract it? dedicated age save? how to generate uuid using sim time?
@@ -58,6 +58,7 @@ public:
     friend std::ostream& operator<<(std::ostream& stream, const identifier &id);
 
 private:
+    void generate_time();
     void generate_uuid();
 
     // TODO: pass data by ref?
@@ -80,6 +81,8 @@ void uuid_generate_random(uuid_t out); -- does this come closest to windows?
 windows:
 IsEqualGUID
 https://msdn.microsoft.com/en-us/library/windows/desktop/ms680575(v=vs.85).aspx
+
+// TODO: move these links to the readme resources bullets
 
 macos:
 

@@ -11,5 +11,8 @@ int main(int argc, char **argv)
     identifier object;
     std::cout << object << std::endl;
 
+    identifier object2(3.1);
+    std::cout << object2 << std::endl;
+
     std::cout << "terminating main" << std::endl;
 }
