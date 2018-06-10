@@ -34,6 +34,9 @@ public:
     identifier(double sim_time);
     // identifier(char *in, double time); // for when remote id is received over subcription channel
     // identifier(std::string in, double time); // see if it's possible to template the string input
+    // https://stackoverflow.com/a/15199891
+    // best idea: support char array and string inputs in separate constructors and both call a private function
+    // that constructs using the template typeid logic in the link above
 
     std::string get_uuid_string() const;
     double get_time_double() const;
@@ -60,6 +63,8 @@ public:
 private:
     void generate_time();
     void generate_uuid();
+    void reconstruct_time(double time);
+    void reconstruct_uuid(std::string uuid);
 
     // TODO: pass data by ref?
     template <typename T>

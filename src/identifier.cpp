@@ -21,6 +21,7 @@ identifier::identifier(double sim_time)
     // parse the provided double into duration since epoch (to match system-generated setup)
     // TODO: create a function called reconstruct_time? (could be used here and in the string versions)
     // TODO: the other forms would use reconstruct_uuid as well.
+    reconstruct_time(sim_time);
     generate_uuid();
 }
 
@@ -57,6 +58,16 @@ void identifier::generate_uuid()
     std::cout << "running on mac" << std::endl; // temporary
     // TODO: not yet tested
     #endif
+}
+
+void identifier::reconstruct_time(double time)
+{
+    // working here take double (time since epoch) and convert it to duration which is timestamp_
+}
+
+void identifier::reconstruct_uuid(std::string uuid)
+{
+    std::cout << "back into uuid object" << std::endl;
 }
 
 std::string identifier::get_uuid_string() const
