@@ -2,27 +2,27 @@
 
 identifier::identifier()
 {
-    std::cout << "instantiating, using system clock" << std::endl;
-
+    std::cout << "instantiating, generating new id and timestamp" << std::endl;
     generate_time();
     generate_uuid();
 }
 
-identifier::identifier(double sim_time)
+identifier::identifier(double timestamp)
 {
-    // in non-real-time execution, a sim time will be used for the timestamp
-    // also, could be used in the case that a report timestamp needs to be used
-    std::cout << "instantiating, given a sim time" << std::endl;
-    std::cout << sim_time << std::endl;
-    // why would I want this form of instantiation?
-
-    // note: sim clock needs to provide the time since epoch format as a double
-
-    // parse the provided double into duration since epoch (to match system-generated setup)
-    // TODO: create a function called reconstruct_time? (could be used here and in the string versions)
-    // TODO: the other forms would use reconstruct_uuid as well.
-    reconstruct_time(sim_time);
+    // when sim time or input report time needs to be used
+    // note: provided double needs to be seconds "since epoch"
+    std::cout << "instantiating, given a specific time" << std::endl;
+    reconstruct_time(timestamp);
     generate_uuid();
+}
+
+identifier::identifier(std::string uuid, double timestamp)
+{
+    // when a specific id and time are known
+    // note: provided double needs to be seconds "since epoch"
+    std::cout << "instantiating, given a specific id and time" << std::endl;
+    reconstruct_time(timestamp);
+    reconstruct_uuid(uuid);
 }
 
 void identifier::generate_time()
@@ -38,8 +38,6 @@ void identifier::generate_time()
     // std::cout << d.count() << std::endl;
     // std::cout << e.count() << std::endl;
 }
-
-
 
 void identifier::generate_uuid()
 {
@@ -60,14 +58,21 @@ void identifier::generate_uuid()
     #endif
 }
 
-void identifier::reconstruct_time(double time)
+void identifier::reconstruct_time(double seconds)
 {
-    // working here take double (time since epoch) and convert it to duration which is timestamp_
+    // convert seconds to integer nanoseconds then to duration
+    long long int nanoseconds = seconds*1000000000;
+    timestamp_ = std::chrono::system_clock::duration(nanoseconds);
+
+    // TODO: loop back to double and make sure it matches
 }
 
 void identifier::reconstruct_uuid(std::string uuid)
 {
-    std::cout << "back into uuid object" << std::endl;
+    // convert string to uuid_t
+    std::cout << "TODO: back into uuid object" << std::endl;
+
+    // TODO: loop back to string and make sure it matches
 }
 
 std::string identifier::get_uuid_string() const

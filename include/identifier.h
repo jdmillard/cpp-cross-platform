@@ -31,31 +31,17 @@ class identifier
 {
 public:
     identifier();
-    identifier(double sim_time);
-    // identifier(char *in, double time); // for when remote id is received over subcription channel
-    // identifier(std::string in, double time); // see if it's possible to template the string input
-    // https://stackoverflow.com/a/15199891
-    // best idea: support char array and string inputs in separate constructors and both call a private function
-    // that constructs using the template typeid logic in the link above
+    identifier(double timestamp);
+    identifier(std::string uuid, double timestamp);
 
     std::string get_uuid_string() const;
     double get_time_double() const;
 
-    // public accessors and comparators inside the functions #defines handle the appropriate commands
-    // how best to attach a time? use a specific type of id and extract it? dedicated age save? how to generate uuid using sim time?
-    // constructor for initializing the id
-    // constructor for initializing with existing string id (from subscribe message) - possible with system libraries?
     // operator overloading:
     // greater than (compare time) equal to (compare id)
     // swallow/adopt
         // swallow is to add it to the list of later tracks
         // adopt is to use the new id/timestamp
-
-    // IDs FOR TRACKS:
-    // various unsigned chars come through subscription (the first one is the track id and subsequent ones are adopted ids)
-    // throw all of these into a new id class
-    // compare local id classes to see if already equal (return bool)
-    // after additional state checks, etc, once confirmed the same, a way to merge
 
     // friend means its not a class member (could easily delcare outside the class)
     friend std::ostream& operator<<(std::ostream& stream, const identifier &id);
