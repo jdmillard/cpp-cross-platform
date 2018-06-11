@@ -57,10 +57,11 @@ private:
 
     // TODO: pass data by ref?
     template <typename T>
-    void hex_stream(std::stringstream &stream, T data) const;
+    void data_to_hex(std::stringstream &stream, T data) const;
 
+    // TODO: pass string by ref?
     template <typename T>
-    void testtest(std::string &string, T &data) const;
+    void hex_to_data(std::string string, T &data) const;
 
     id_raw_t id_;
     std::vector<id_raw_t> aliases_;
