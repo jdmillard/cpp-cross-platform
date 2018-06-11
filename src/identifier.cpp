@@ -49,7 +49,7 @@ void identifier::generate_uuid()
 
     #if CMAKE_WINDOWS
     std::cout << "running on windows" << std::endl; // temporary
-    CoCreateGuid(&id_);
+    CoCreateGuid(&id_); // TODO: is this dereference required?
     #endif
 
     #if CMAKE_MACOS
@@ -147,7 +147,7 @@ double identifier::get_time_double() const
 }
 
 template <typename T>
-void identifier::data_to_hex(std::stringstream &stream, T data) const
+void identifier::data_to_hex(std::stringstream &stream, T &data) const
 {
     // given raw data, convert the value to a hex string
     // (compiles for all platforms, only required by Windows)
@@ -156,7 +156,7 @@ void identifier::data_to_hex(std::stringstream &stream, T data) const
 }
 
 template <typename T>
-void identifier::hex_to_data(std::string string, T &data) const
+void identifier::hex_to_data(std::string &string, T &data) const
 {
     // given a hex std::string, convert to the provided data type
     // (compiles for all platforms, only required by Windows)
