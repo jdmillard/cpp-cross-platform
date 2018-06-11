@@ -93,5 +93,6 @@ macOS notes here
 Put note here about style guide. standard library
 
 ### Resource Links
+* [libuuid (Linux Only)](https://linux.die.net/man/3/libuuid "libuuid Linux Man Page")
 * [ole32 Module (Windows Only)](https://msdn.microsoft.com/en-us/library/ms923850.aspx "ole32 Module Documentation")
 * [CoCreateGuid (Windows Only)](https://msdn.microsoft.com/en-us/library/ms886229.aspx "CoCreateGuid Documentation")
