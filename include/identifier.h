@@ -1,11 +1,11 @@
 #pragma once
 
 #include <vector>
-#include <chrono> // for timestamps
-#include <iostream>
-#include <sstream> // for std::stringstream
-#include <iomanip> // std::setfill; std::setw
-#include <typeinfo> // for typeid() in templated type
+#include <chrono>   // for timestamps
+#include <iostream> // for std::ostream and std::cout
+#include <sstream>  // for std::stringstream
+#include <iomanip>  // std::setfill; std::setw
+#include <typeinfo> // for typeid() in templated type logic
 
 #if CMAKE_LINUX
 #include <uuid.h>
