@@ -13,11 +13,12 @@ int main(int argc, char **argv)
     object = identifier();
     std::cout << object << std::endl << std::endl;
 
-    identifier object2(1528600401.9890461);
+    double timestamp = 1528600401.9890461;
+    identifier object2(timestamp);
     std::cout << object2 << std::endl << std::endl;
 
     std::string test_input = "a6795f2a-a35b-47e7-b0b0-471fe3ec588b";
-    identifier object3(test_input, 1528600401.9890461);
+    identifier object3(test_input, timestamp);
     std::cout << object3 << std::endl << std::endl;
 
     std::cout << "terminating main" << std::endl;
