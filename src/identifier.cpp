@@ -70,7 +70,94 @@ void identifier::reconstruct_time(double seconds)
 void identifier::reconstruct_uuid(std::string uuid)
 {
     // convert string to uuid_t
-    std::cout << "TODO: back into uuid object" << std::endl;
+
+    #if CMAKE_LINUX
+    // convert string to c-style char array
+
+    //string str = "some string" ;
+    std::cout << "attempting this: " << uuid << std::endl;
+    char *cstr = &uuid[0u];
+    uuid_parse(cstr, id_);
+
+
+
+    #endif
+
+    #if CMAKE_WINDOWS
+    std::cout << "attempting this: " << std::endl << uuid << std::endl;
+    unsigned char test[20];
+
+    // because we're editing the data fields directly, generate a new one first
+    // for good measure in case there are other internal data fields TODO
+
+    std::string one = uuid.substr(0,8);
+    std::string two = uuid.substr(9,4);
+    std::string thr = uuid.substr(14,4);
+    std::string four_0 = uuid.substr(19,2);
+    std::string four_1 = uuid.substr(21,2);
+    std::string four_2 = uuid.substr(24,2);
+    std::string four_3 = uuid.substr(26,2);
+    std::string four_4 = uuid.substr(28,2);
+    std::string four_5 = uuid.substr(30,2);
+    std::string four_6 = uuid.substr(32,2);
+    std::string four_7 = uuid.substr(34,2);
+
+
+    std::cout << one << "-" << two << "-" << thr << "-"
+              << four_0 << four_1 << "-"
+              << four_2 << four_3 << four_4 << four_5 << four_6 << four_7
+              << std::endl;
+
+    testtest(one, id_.Data1);
+    testtest(two, id_.Data2);
+    testtest(thr, id_.Data3);
+    testtest(four_0, id_.Data4[0]);
+    testtest(four_1, id_.Data4[1]);
+    testtest(four_2, id_.Data4[2]);
+    testtest(four_3, id_.Data4[3]);
+    testtest(four_4, id_.Data4[4]);
+    testtest(four_5, id_.Data4[5]);
+    testtest(four_6, id_.Data4[6]);
+    testtest(four_7, id_.Data4[7]);
+
+    // what goes in is a string and templated type by ref
+
+    // this approach doesn't seem to work on unsigned char
+    // convert four_0 (hex std::string) to unsigned char
+
+    // std::stringstream ss;
+    // ss << std::hex << four_0;
+    // int hex_as_int;
+    // unsigned char aaa;
+    // ss >> hex_as_int;
+    // aaa = (unsigned char)hex_as_int;
+
+
+    //unsigned long int aaa = 16;
+    //id_.Data1 = aaa;    // normally unsigned long int>8hex, now 8string>8hex>unsigned long int
+    //id_.Data2 = bbb;      // normally unsigned short int>4hex, now 4string>4hex>unsigned short int
+    //id_.Data3 = 0;      // normally unsigned short int>4hex, now 4string>4hex>unsigned short int
+    //id_.Data4[0] = aaa;   // normally unsigned char>2hex, now 2string>2hex>unsigned char
+    //id_.Data4[1] = 0;   // normally unsigned char>2hex, now 2string>2hex>unsigned char
+    //id_.Data4[2] = 0;   // normally unsigned char>2hex, now 2string>2hex>unsigned char
+    //id_.Data4[3] = 0;   // normally unsigned char>2hex, now 2string>2hex>unsigned char
+    //id_.Data4[4] = 0;   // normally unsigned char>2hex, now 2string>2hex>unsigned char
+    //id_.Data4[5] = 0;   // normally unsigned char>2hex, now 2string>2hex>unsigned char
+    //id_.Data4[6] = 0;   // normally unsigned char>2hex, now 2string>2hex>unsigned char
+    //id_.Data4[7] = 0;   // normally unsigned char>2hex, now 2string>2hex>unsigned char
+
+    // parse the string into these 11 pieces
+    // then convert to hex
+    // then
+
+
+
+    #endif
+
+    #if CMAKE_MACOS
+    // not yet explored
+    #endif
+
 
     // TODO: loop back to string and make sure it matches
 }
@@ -125,6 +212,25 @@ void identifier::hex_stream(std::stringstream &stream, T data) const
     // (compiles for all platforms, only required by Windows)
     stream << std::setfill('0') << std::setw(sizeof(T)*2)
            << std::hex << (int)data;
+}
+
+template <typename T>
+void identifier::testtest(std::string &string, T &data) const
+{
+    // given a hex std::string, convert the the provided data type
+    std::stringstream sss;
+    sss << std::hex << string;
+    if (typeid(T) == typeid(unsigned char))
+    {
+        // convert to integer before unsigned char
+        int hex_as_int;
+        sss >> hex_as_int;
+        data = (T)hex_as_int;
+    }
+    else
+    {
+        sss >> data;
+    }
 }
 
 std::ostream& operator<<(std::ostream& stream, const identifier &id)

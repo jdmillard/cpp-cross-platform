@@ -5,6 +5,7 @@
 #include <iostream>
 #include <sstream> // for std::stringstream
 #include <iomanip> // std::setfill; std::setw
+#include <typeinfo> // for typeid() in templated type
 
 #if CMAKE_LINUX
 #include <uuid.h>
@@ -26,6 +27,8 @@ typedef GUID id_raw_t;
 // TODO: switch to <root>/include/<project_name>/<.h files>
 // TODO: switch .hpp naming
 // TODO: decide on pragmaonce vs ifndef
+// TODO: see where const can be used
+// TODO: make sure any c arrays are being deleted
 
 class identifier
 {
@@ -55,6 +58,9 @@ private:
     // TODO: pass data by ref?
     template <typename T>
     void hex_stream(std::stringstream &stream, T data) const;
+
+    template <typename T>
+    void testtest(std::string &string, T &data) const;
 
     id_raw_t id_;
     std::vector<id_raw_t> aliases_;
