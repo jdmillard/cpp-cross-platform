@@ -80,7 +80,7 @@ void identifier::reconstruct_uuid(std::string uuid)
     #if CMAKE_WINDOWS
     // uuid data will be overwritten, but first generate a clean object
     generate_uuid();
-    // convert the hex strings using the templated converter
+    // convert hex substrings to data elements using the templated converter
     hex_to_data(uuid.substr(0,8), id_.Data1);
     hex_to_data(uuid.substr(9,4), id_.Data2);
     hex_to_data(uuid.substr(14,4), id_.Data3);
@@ -98,10 +98,9 @@ void identifier::reconstruct_uuid(std::string uuid)
     // not yet explored
     #endif
 
-
     // TEMP: loop back to string and make sure it matches
-    std::cout << uuid << std::endl;
-    std::cout << get_uuid_string() << std::endl;
+    std::cout << uuid << " (input string)" << std::endl;
+    std::cout << get_uuid_string() << " (resulting member value)" << std::endl;
 }
 
 std::string identifier::get_uuid_string() const
