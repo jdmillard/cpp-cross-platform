@@ -73,12 +73,8 @@ void identifier::reconstruct_uuid(std::string uuid)
 
     #if CMAKE_LINUX
     // convert string to c-style char array
-
-    //string str = "some string" ;
-    std::cout << "attempting this: " << uuid << std::endl;
     char *cstr = &uuid[0u];
     uuid_parse(cstr, id_);
-
     #endif
 
     #if CMAKE_WINDOWS
@@ -103,7 +99,9 @@ void identifier::reconstruct_uuid(std::string uuid)
     #endif
 
 
-    // TODO: loop back to string and make sure it matches
+    // TEMP: loop back to string and make sure it matches
+    std::cout << uuid << std::endl;
+    std::cout << get_uuid_string() << std::endl;
 }
 
 std::string identifier::get_uuid_string() const
