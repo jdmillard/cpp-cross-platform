@@ -59,7 +59,7 @@ private:
     void data_to_hex(std::stringstream &stream, T &data) const;
 
     template <typename T>
-    void hex_to_data(std::string &string, T &data) const;
+    void hex_to_data(std::string string, T &data) const;
 
     id_raw_t id_;
     std::vector<id_raw_t> aliases_;
