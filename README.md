@@ -39,7 +39,7 @@ First we'll cover how to build and run without Visual Studio. The Windows UUID [
 This process is the most "Linuxy" because it uses MinGW (Minimalist GNU for Windows). Install [MinGW](http://www.mingw.org/ "Official MinGW Website"). After the installer is set up, launch it, select the required packages, and install (by clicking "Installation > Apply Changes") the following under "Basic Setup":
 * `ming32-base` (a basic MinGW installation)
 * `ming32-gcc-g++` (the GNU C++ compiler)
-* `ming32-gccobjc` (the GNU objective-C compiler)
+* `ming32-gcc-objc` (the GNU objective-C compiler)
 
 Now add MinGW to `PATH`:
 1. Right click on "This PC" and open "Properties"
