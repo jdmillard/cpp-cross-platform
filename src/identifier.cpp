@@ -28,7 +28,7 @@ identifier::identifier(std::string uuid, double timestamp)
 void identifier::generate_time()
 {
     // timestamp
-    timestamp_raw_ = std::chrono::high_resolution_clock::now();
+    //timestamp_raw_ = std::chrono::high_resolution_clock::now();
     timestamp_ = timestamp_raw_.time_since_epoch();
     // std::chrono::seconds c = std::chrono::duration_cast<std::chrono::seconds>(timestamp_);
     // std::chrono::milliseconds d = std::chrono::duration_cast<std::chrono::milliseconds>(timestamp_);
